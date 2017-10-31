@@ -1,0 +1,59 @@
+# Initialize a stack class
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        return self.items.pop()
+
+    def empty(self):
+        return self.items == []
+
+    def peek(self):
+        return self.items[len(self.items) - 1]
+
+# Helper function that returns the matching opening symbol
+def match(symbol):
+    if symbol == ')':
+        return '('
+    elif symbol == '}':
+        return '{'
+    elif symbol == ']':
+        return '['
+
+
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+
+        solution = Stack()
+        valid = True
+
+        for i in s:
+            # Checks to see if the symbol is an opening one; if so, pushes to stack
+            if i in "({[":
+                solution.push(i)
+            else:
+                # If there is a closing symbol but no opening one, not valid
+                if solution.empty():
+                    valid = False
+                else:
+                    # Check to see if the most recent opening symbol is a match for the closing symbol;
+                    # if it is, pops it off
+                    if match(i) == solution.peek():
+                        solution.pop()
+                    # If most recent opening symbol doesn't match, isn't valid
+                    else:
+                        valid = False
+
+        # The stack must be empty to be valid, since every opening symbol must have a closing symbol
+        if valid and solution.empty():
+            return True
+        else:
+            return False
