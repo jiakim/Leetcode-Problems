@@ -1,0 +1,42 @@
+# Brute force solution
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        solution = []
+
+        for i in range(len(nums)):
+            for j in range(i+1, len(nums)):
+                if nums[i] + nums[j] == target:
+                    solution.append(i)
+                    solution.append(j)
+
+        return solution
+
+# Runtime: O(n^2)
+
+# More elegant solution, implemented w/ a dictionary
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        solution = []
+        index_map = {}
+
+        for i in range(len(nums)):
+            # Find the number we need
+            needed = target - nums[i]
+            # If we already passed it, find its index
+            if needed in index_map:
+                solution.append(index_map[needed])
+                solution.append(i)
+            # Otherwise, add the current number to the lookup and continue
+            index_map[nums[i]] = i
+
+        return solution
