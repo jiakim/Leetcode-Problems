@@ -1,0 +1,23 @@
+class Solution(object):
+    def lengthOfLastWord(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+
+        length = 0
+        alphabet = 'abcdefghijklmnopqrstuvwxyz'
+        numbers = '123456789'
+
+        for letter in range(len(s)):
+            if s[letter].lower() not in alphabet:
+                if str(s[letter]) in numbers:
+                    pass
+                else:
+                    if letter != len(s) - 1 and s[letter + 1].lower() in alphabet:
+                        length = 0
+            else:
+                length += 1
+
+
+        return length
