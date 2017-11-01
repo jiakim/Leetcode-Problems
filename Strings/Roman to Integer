@@ -1,0 +1,32 @@
+class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        numerals = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        converted = 0
+        index = 0
+
+        # Iterate until your index pointer is at the last index of the input string
+        while index < len(s):
+            # If you're not at the last index, check to see if the next number is greater
+            if index != len(s) - 1:
+                # If it is, it means you have to subtract the current number from the next one (Roman numeral rules!)
+                if numerals[s[index + 1]] > numerals[s[index]]:
+                    converted = converted + numerals[s[index + 1]] - numerals[s[index]]
+                    # Skip an index because you've already accounted for the next number
+                    index += 2
+
+                else:
+                    # Otherwise, add it like normal and increment like normal
+                    converted += numerals[s[index]]
+                    index += 1
+
+            else:
+                # If you're at the last index, add like normal and increment like normal (so you can end the loop)
+                converted += numerals[s[index]]
+                index += 1
+
+
+        return converted
