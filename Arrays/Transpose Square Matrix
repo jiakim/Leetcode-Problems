@@ -1,0 +1,13 @@
+# Transpose a square matrix in place
+def transpose_matrix(matrix):
+    rows = len(matrix)
+    columns = len(matrix[0])
+
+    # Iterate through each row
+    for i in range(rows):
+        # But only swap the items past the middle diagonal, to avoid swapping twice.
+        # Iterating through column i+1 and on ensures that the top half gets covered.
+        for j in range(i+1, columns):
+            temp = matrix[i][j]
+            matrix[i][j] = matrix[j][i]
+            matrix[j][i] = temp

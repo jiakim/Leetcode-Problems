@@ -1,0 +1,65 @@
+# Find the indices of the first and last occurrences of an input number.
+# Return a Range object.
+
+# O(n) runtime
+def find_range(input_list,input_number):
+    seen = False
+    current = Range(-1, -1)
+
+    for i in range(len(input_list)):
+        if input_list[i] == input_number:
+            if seen:
+                current = Range(current.lower_bound, i)
+            else:
+                current = Range(i, i)
+                seen = True
+        else:
+            pass
+
+    return current
+
+# O(log n) runtime (notes for future: make more modular?)
+def find_range(input_list,input_number):
+    lower_bound = -1
+    upper_bound = -1
+
+    # Looking for the first occurrence; modified binary search
+    first = 0
+    last = len(input_list) - 1
+    # Close the gap between the first and last
+    while first < last:
+        mid = (first+last)/2
+        # If the current midpoint is smaller than the target, scoot it up by one
+        if input_list[mid] < input_number:
+            first = mid + 1
+        # If the current midpoint is larger than the target, establish that as the endpoint
+        else:
+            last = mid
+
+    # If the value that was supposed to be the first occurrence isn't, that number is not in the array
+    if input_list[first] != input_number:
+        return Range()
+    else:
+        lower_bound = first
+
+    # Now looking for the last occurrence
+    first = 0
+    last = len(input_list) - 1
+    while first < last:
+        mid = (first + last)/2
+        # If the current midpoint is less than the target+1, scoot it up by one
+        if (input_list[mid] < input_number + 1):
+            first = mid + 1
+        # If it is larger, establish as endpoint
+        else:
+            last = mid
+
+    # If the number that is supposed to be the last occurrence is, then set upper bound to it
+    if(input_list[first] == input_number):
+        upper_bound = first
+    # If not, we're one value larger than we need b/c we set first to be mid+1 , so adjust
+    else:
+        upper_bound = first-1
+
+
+    return Range(lower_bound,upper_bound)
