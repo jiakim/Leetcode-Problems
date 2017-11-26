@@ -1,0 +1,22 @@
+class Solution(object):
+    # Find the missing number from a given array from 0 to n.
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # len(nums) because there will be one missing number, so the complete array would be one more than that
+        n = len(nums)
+        # The missing number should be the difference between the sum of a complete list from 0 to n and
+        # the sum of nums
+        return (n * (n+1) / 2) - sum(nums)
+
+    # A more straightforward implementation: sets!
+
+    def missingNumber2(self, nums):
+        nums_set = set(nums)
+        n = len(nums)
+
+        for number in range(n + 1):
+            if number not in nums_set:
+                return number

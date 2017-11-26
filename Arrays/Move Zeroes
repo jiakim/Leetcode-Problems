@@ -1,0 +1,27 @@
+class Solution(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        # Set up two-pointer approach
+        i = 0
+        j = 0
+
+        # Iterate through the list once to figure out how many zeroes there are
+        while j < len(nums):
+            # If the current item is a zero, don't swap it out to the front; just move on
+            if nums[j] == 0:
+                j += 1
+            # If the current item is a valid number, swap it out to the front where the i pointer currently is
+            # Basically, as you run into valid numbers you put them in the order you encounter them to where the
+            # i pointer is; the i pointer only moves for valid numbers and not zeroes
+            else:
+                nums[i] = nums[j]
+                i += 1
+                j += 1
+
+        # Iterate through the list starting where the i pointer left off, and fill the rest of the array with zeroes
+        while i < len(nums):
+            nums[i] = 0
+            i += 1

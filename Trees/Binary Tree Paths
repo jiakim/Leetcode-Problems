@@ -1,0 +1,26 @@
+class Solution(object):
+    def binaryTreePaths(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[str]
+        """
+        paths = []
+
+        if root:
+            self.findPaths(root, "", paths)
+
+        return paths
+
+    def findPaths(self, root, path, paths):
+        """
+        root: TreeNode
+        path: String of current path
+        paths: List holding all paths
+        """
+        # If there's only a root and no children
+        if not root.left and not root.right:
+            paths.append(path + str(root.val))
+        if root.left:
+            self.findPaths(root.left, path + str(root.val) + "->", paths)
+        if root.right:
+            self.findPaths(root.right, path + str(root.val) + "->", paths)

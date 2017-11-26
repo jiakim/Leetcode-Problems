@@ -1,0 +1,46 @@
+class Solution(object):
+    def findWords(self, words):
+        """
+        :type words: List[str]
+        :rtype: List[str]
+        """
+        row1 = 'qwertyuiop'
+        row2 = 'asdfghjkl'
+        row3 = 'zxcvbnm'
+        accepted = []
+
+        for word in words:
+            flag = True
+            # Designate which row of possible letters all of the letters in the word should come from
+            row = row1 if word[0].lower() in row1 else (row2 if word[0].lower() in row2 else row3)
+
+            for letter in word.lower():
+                # Flag the letter if it comes from a different row than the first character of the word
+                if letter not in row:
+                    flag = False
+            # Only add the word to the accepted list if none of its letters were flagged
+            if flag == True:
+                accepted.append(word)
+
+        return accepted
+
+# A SIMPLER WAY: use sets
+
+class Solution(object):
+    def findWords(self, words):
+        """
+        :type words: List[str]
+        :rtype: List[str]
+        """
+        row1 = set('qwertyuiop')
+        row2 = set('asdfghjkl')
+        row3 = set('zxcvbnm')
+        accepted = []
+
+        for word in words:
+            x = set(word.lower())
+            # Check to see if the lowercase word is a subset of any of the three separate rows
+            if x.issubset(row1) or x.issubset(row2) or x.issubset(row3):
+                accepted.append(word)
+
+        return accepted
